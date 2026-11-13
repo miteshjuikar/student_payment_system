@@ -2,12 +2,15 @@ require("dotenv").config();
 
 const app = require("./app");
 const connectMongoDB = require("./config/mongodb");
+const prisma = require("./config/postgresql");
 
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   try {
     await connectMongoDB();
+    await prisma.$connect();
+    console.log("PostgreSQL connected successfully");
     app.listen(PORT, () => { console.log(`Server running on port ${PORT}`); });
   } 
   catch (error) {

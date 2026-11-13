@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model TransactionLog {
+  txn_id             String   @id @db.Text
+  txn_amount         Decimal  @db.Decimal(18, 2)
+  txn_status         String   @db.Text
+  previous_txn_id    String?  @db.Text
+  txn_date_time      DateTime @db.Timestamptz(6)
+  std_id             String   @db.Text
+  std_name           String   @db.Text
+  std_mobile         String?  @db.Text
+  std_email          String?  @db.Text
+  std_state          String?  @db.Text
+  course_id          String   @db.Text
+  course_name        String   @db.Text
+  course_type        String?  @db.Text
+
+  @@map("transaction_logs")
+}
